@@ -16,27 +16,35 @@
 
 #### `model.js`
 
-#### `categories-model.js`
-
-#### `products-model.js`
-
-#### `todo-model.js`
+#### `users-model.js`
 
 #### `404.js`
 
-#### `500.js`
+#### `error.js`
 
-#### `router.js`
+#### `auth-router.js`
+
+#### `book- router.js`
 
 #### `server.js`
 
 ##### Exported Values and Methods
 
-###### `handleGetOne(req, res, next)`
+###### `get(_id)`
 
-###### `handlePost(req, res, next)`
+###### `getFromField(query)`
 
-###### `handlePut(req, res, next)`
+###### `create(record)`
+
+###### `update(_id, record)`
+
+###### `delete(_id)`
+
+###### `create(req, res, next)`
+
+###### `authenticate(req, res, next)`
+
+###### `setToken(req, res, next)`
 
 ###### `handleDelete(req, res, next)`
 
@@ -47,7 +55,8 @@
 #### `.env` requirements
 
 - `PORT` - 3000
-- `MONGODB_URI` - mongodb://127.0.0.1:27017/app
+- `MONGODB_URI`
+- `JWT_SECRET`
 
 #### Running the app
 
@@ -57,7 +66,7 @@
 #### Tests
 
 - How do you run tests?
-- `npm test`
+- `npm test __tests__/`
 
 #### UML
 

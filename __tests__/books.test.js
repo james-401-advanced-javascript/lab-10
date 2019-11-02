@@ -17,7 +17,7 @@ const Users = require('../lib/models/users-model.js');
 let userData = {
   admin: { username: 'sarah', password: 'sarahpassword', role: 'admin' },
   editor: { username: 'bill', password: 'billpassword', role: 'editor' },
-  user: { username: 'rene', password: 'renepassword', role: 'user' }
+  user: { username: 'rene', password: 'renepassword', role: 'user' },
 };
 
 let users = new Users();
