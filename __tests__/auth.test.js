@@ -29,6 +29,9 @@ beforeAll(async done => {
   const adminUser = await users.create(userData.admin);
   const editorUser = await users.create(userData.editor);
   const userUser = await users.create(userData.user);
+  console.log(adminUser);
+  console.log(editorUser);
+  console.log(userUser);
   done();
 });
 
