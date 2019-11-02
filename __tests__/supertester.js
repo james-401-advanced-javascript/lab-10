@@ -13,7 +13,7 @@ let mongoServer;
 let supertester = (module.exports = {});
 /**
  * @server
- * @returns function that expects an express server
+ * @return function that expects an express server
  */
 supertester.server = server => supertest(server);
 
@@ -50,5 +50,3 @@ describe('supertester', () => {
     expect(true).toBeTruthy();
   });
 });
-
-
