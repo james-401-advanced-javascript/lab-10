@@ -1,6 +1,8 @@
 'use strict';
 
-const supertester = require('./supertester.js');
+const { server } = require('../lib/server');
+const supertester = require('./supertester');
+const mockServer = supertester.server(server);
 const Users = require('../lib/models/users-model.js');
 
 // === Mock Database Setup ============================================
@@ -36,8 +38,10 @@ afterAll(supertester.stopDB);
 
 // === Your Test Code =================================================
 
-/* describe('test', () => {
-  it('does something', () => {
-    
-  }); 
-}); */
+describe('test', () => {
+  it('creates a new user', async () => {
+    let user = await mockServer.post('/signup').send(userData.user);
+    expect(user.status).toBe(200);
+    expect(user).toBeDefined();
+  });
+});

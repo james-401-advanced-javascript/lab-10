@@ -1,6 +1,8 @@
 'use strict';
 
-const supertester = require('./supertester.js');
+const { server } = require('../lib/server');
+const supertester = require('./supertester');
+const mockServer = supertester.server(server);
 const Users = require('../lib/models/users-model.js');
 
 // === Mock Database Setup ============================================
@@ -34,8 +36,10 @@ afterAll(supertester.stopDB);
 
 // === End Mock Database Setup ========================================
 
-/* describe('test', () => {
-  it('does something', () => {
-    
-  }); 
-}); */
+describe('test', () => {
+  it('get books from library', async () => {
+    let bookData = await mockServer.get('/books');
+    expect(bookData.status).toBe(200);
+    expect(bookData).toBeDefined();
+  });
+});
