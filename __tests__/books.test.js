@@ -46,16 +46,15 @@ describe('test', () => {
   });
   it('can get books for authorized user', async () => {
     let person = await mockServer.post('/signin').send({
-      username: 'sarah',
-      password: 'sarahpassword',
+      username: 'bill',
+      password: 'billpassword',
     });
     let token = person.headers.token;
     let userBook = await mockServer
       .get('/books')
-      .send({ token, username: 'sarah', password: 'sarahpassword' });
-    console.log(userBook.body);
+      .send({ token, username: 'bill', password: 'billpassword' });
     expect(userBook.status).toBe(200);
-    expect(userBook.body).toBeDefined();
+    expect(userBook.body.count).toBe(2);
   });
   it('can get individual book for authorized user', async () => {
     let person = await mockServer.post('/signin').send({
@@ -66,8 +65,19 @@ describe('test', () => {
     let userBook = await mockServer
       .get('/books/2')
       .send({ token, username: 'rene', password: 'renepassword' });
-    console.log(userBook.body);
     expect(userBook.status).toBe(200);
     expect(userBook.body).toBeDefined();
+  });
+  it('restricts authenticated users from accessing unauthorized books', async () => {
+    let person = await mockServer.post('/signin').send({
+      username: 'rene',
+      password: 'renepassword',
+    });
+    let token = person.headers.token;
+    let userBook = await mockServer
+      .get('/books/0')
+      .send({ token, username: 'rene', password: 'renepassword' });
+    expect(userBook.status).toBe(403);
+    expect(userBook.text).toBe('Access Denied');
   });
 });

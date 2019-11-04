@@ -42,7 +42,7 @@ afterAll(supertester.stopDB);
 // === Your Test Code =================================================
 
 describe('test', () => {
-  it('creates a new user', async () => {
+  it('lets a new user signup', async () => {
     let person = { username: 'todd', password: 'toddpassword', role: 'admin' };
     let user = await mockServer.post('/signup').send(person);
     expect(user.status).toBe(200);
