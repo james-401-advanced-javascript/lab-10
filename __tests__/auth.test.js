@@ -43,7 +43,14 @@ afterAll(supertester.stopDB);
 
 describe('test', () => {
   it('creates a new user', async () => {
-    let user = await mockServer.post('/signup').send(userData.user);
+    let person = { username: 'todd', password: 'toddpassword', role: 'admin' };
+    let user = await mockServer.post('/signup').send(person);
+    expect(user.status).toBe(200);
+    expect(user).toBeDefined();
+  });
+  it('let a current user signin', async () => {
+    let user = await mockServer.post('/signin').send(userData.user);
+    console.log(user.status);
     expect(user.status).toBe(200);
     expect(user).toBeDefined();
   });

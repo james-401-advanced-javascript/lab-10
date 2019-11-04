@@ -40,9 +40,34 @@ afterAll(supertester.stopDB);
 // === End Mock Database Setup ========================================
 
 describe('test', () => {
-  it('get books from library', async () => {
+  it('requires user to be signed in to get books from library', async () => {
     let bookData = await mockServer.get('/books');
-    expect(bookData.status).toBe(200);
-    expect(bookData).toBeDefined();
+    expect(bookData.status).toBe(403);
+  });
+  it('can get books for authorized user', async () => {
+    let person = await mockServer.post('/signin').send({
+      username: 'sarah',
+      password: 'sarahpassword',
+    });
+    let token = person.headers.token;
+    let userBook = await mockServer
+      .get('/books')
+      .send({ token, username: 'sarah', password: 'sarahpassword' });
+    console.log(userBook.body);
+    expect(userBook.status).toBe(200);
+    expect(userBook.body).toBeDefined();
+  });
+  it('can get individual book for authorized user', async () => {
+    let person = await mockServer.post('/signin').send({
+      username: 'rene',
+      password: 'renepassword',
+    });
+    let token = person.headers.token;
+    let userBook = await mockServer
+      .get('/books/2')
+      .send({ token, username: 'rene', password: 'renepassword' });
+    console.log(userBook.body);
+    expect(userBook.status).toBe(200);
+    expect(userBook.body).toBeDefined();
   });
 });
